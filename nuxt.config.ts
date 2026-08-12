@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
   plugins: ["~/plugins/icon.ts"],
   devtools: { enabled: true },
 });

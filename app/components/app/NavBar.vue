@@ -2,19 +2,9 @@
 const navLinks = [
   { label: "History", to: "/" },
   { label: "Compare", to: "/compare" },
-  { label: "Favorites", to: "/favorites" },
-  { label: "Logs", to: "/logs" },
+  { label: "Favorites", total: 2, to: "/favorites" },
+  { label: "Logs", total: 2, to: "/logs" },
 ];
-
-// const route = useRoute();
-
-// function isNavActive(to: string) {
-//   if (to === "/recipes") {
-//     return route.path.startsWith("/recipes");
-//   }
-
-//   return route.path === to;
-// }
 </script>
 
 <template>
@@ -28,7 +18,14 @@ const navLinks = [
           :to="link.to"
           class="nav-link relative inline-block text-preset-3 uppercase p-200"
         >
-          {{ link.label }}
+          <div class="flex items-center gap-100">
+            {{ link.label }}
+            <span
+              v-if="link.total"
+              class="text-preset-6 text-lime-500 bg-lime-800 w-5 h-5 rounded-full flex items-center justify-center"
+              >{{ link.total }}</span
+            >
+          </div>
           <span class="nav-link-underline w-fit" aria-hidden="true" />
         </NuxtLink>
       </li>

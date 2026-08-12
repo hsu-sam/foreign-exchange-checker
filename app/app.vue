@@ -12,3 +12,15 @@ import NavBar from "./components/app/NavBar.vue";
     </NuxtLayout>
   </div>
 </template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: all 300ms ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(0.5rem);
+}
+</style>
