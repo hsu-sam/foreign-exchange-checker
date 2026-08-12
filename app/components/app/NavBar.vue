@@ -1,10 +1,16 @@
 <script setup lang="ts">
-const navLinks = [
+const { count: favoritesCount } = useFavorites();
+
+const navLinks = computed(() => [
   { label: "History", to: "/" },
   { label: "Compare", to: "/compare" },
-  { label: "Favorites", total: 2, to: "/favorites" },
+  {
+    label: "Favorites",
+    total: favoritesCount.value || undefined,
+    to: "/favorites",
+  },
   { label: "Logs", total: 2, to: "/logs" },
-];
+]);
 </script>
 
 <template>

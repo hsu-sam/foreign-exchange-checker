@@ -3,7 +3,7 @@ import { Icon } from "@iconify/vue";
 
 // "link" folded into variant since it's a style, not a size
 type ButtonVariant = "default" | "secondary" | "outline" | "border";
-type ButtonSize = "default";
+type ButtonSize = "default" | "rounded";
 
 interface ButtonProps {
   variant?: ButtonVariant;
@@ -35,6 +35,7 @@ const variants: Record<ButtonVariant, string> = {
 
 const sizes: Record<ButtonSize, string> = {
   default: "py-100 px-150",
+  rounded: "p-100",
 };
 </script>
 

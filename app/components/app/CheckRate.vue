@@ -4,7 +4,8 @@ import Button from "../ui/Button.vue";
 import CurrencyPicker from "../ui/CurrencyPicker.vue";
 
 const { sendCurrency, receiveCurrency, swapCurrencies } = useSelectedPair();
-const sendAmount = ref("");
+const { sendAmount } = useSendAmount();
+const { isPinned, togglePin } = useFavorites();
 
 const { rate, status, error } = useExchangeRate(sendCurrency, receiveCurrency);
 
@@ -30,6 +31,13 @@ const rateLabel = computed(() => {
   return `1 ${sendCurrency.value} = ${rate.value.toFixed(4)} ${receiveCurrency.value}`;
 });
 
+const pairIsPinned = computed(() =>
+  isPinned(sendCurrency.value, receiveCurrency.value),
+);
+
+function toggleFavorite() {
+  togglePin(sendCurrency.value, receiveCurrency.value);
+}
 </script>
 
 <template>
@@ -91,8 +99,18 @@ const rateLabel = computed(() => {
         </p>
 
         <div class="flex flex-wrap gap-100">
-          <Button variant="secondary" icon="local:icon-star-filled">
-            FAVORITED
+          <Button
+            :variant="pairIsPinned ? 'secondary' : 'border'"
+            :icon="pairIsPinned ? 'local:icon-star-filled' : 'local:icon-star'"
+            :aria-pressed="pairIsPinned"
+            :aria-label="
+              pairIsPinned
+                ? `Remove ${sendCurrency}/${receiveCurrency} from favorites`
+                : `Add ${sendCurrency}/${receiveCurrency} to favorites`
+            "
+            @click="toggleFavorite"
+          >
+            {{ pairIsPinned ? "FAVORITED" : "FAVORITE" }}
           </Button>
           <Button variant="outline">LOG CONVERSION</Button>
         </div>
