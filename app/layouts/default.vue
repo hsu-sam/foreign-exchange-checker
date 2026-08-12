@@ -14,5 +14,7 @@ import LiveMarketTicker from "~/components/app/LiveMarketTicker.vue";
     <div>
       <CheckRate />
     </div>
+
+    <slot />
   </div>
 </template>

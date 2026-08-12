@@ -121,3 +121,22 @@ body {
   font-family: var(--font-jetbrains-mono);
   background-color: var(--color-neutral-900);
 }
+
+.nav-link-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-lime-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover .nav-link-underline,
+.nav-link.router-link-active .nav-link-underline,
+.nav-link.router-link-exact-active .nav-link-underline {
+  transform: scaleX(1);
+}
