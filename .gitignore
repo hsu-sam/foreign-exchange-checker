@@ -56,3 +56,5 @@ logs
 *.pem
 .DS_Store
 Thumbs.db
+  
+.READMEE.md
