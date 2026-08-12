@@ -3,8 +3,7 @@ import AmountInput from "../ui/AmountInput.vue";
 import Button from "../ui/Button.vue";
 import CurrencyPicker from "../ui/CurrencyPicker.vue";
 
-const sendCurrency = ref("USD");
-const receiveCurrency = ref("EUR");
+const { sendCurrency, receiveCurrency, swapCurrencies } = useSelectedPair();
 const sendAmount = ref("");
 
 const { rate, status, error } = useExchangeRate(sendCurrency, receiveCurrency);
@@ -31,11 +30,6 @@ const rateLabel = computed(() => {
   return `1 ${sendCurrency.value} = ${rate.value.toFixed(4)} ${receiveCurrency.value}`;
 });
 
-function swapCurrencies() {
-  const previousSend = sendCurrency.value;
-  sendCurrency.value = receiveCurrency.value;
-  receiveCurrency.value = previousSend;
-}
 </script>
 
 <template>

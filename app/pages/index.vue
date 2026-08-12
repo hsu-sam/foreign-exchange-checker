@@ -1,61 +1,153 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RateChart from "~/components/app/RateChart.vue";
+import HistoryChartSkeleton from "~/components/skeleton/HistoryChartSkeleton.vue";
+import { useRateHistory } from "~/composables/useRateHistory";
+import { TIME_RANGES, type TimeRange } from "~/types/rate";
+
+const { sendCurrency, receiveCurrency } = useSelectedPair();
+const range = ref<TimeRange>("1M");
+
+const { rate: liveRate } = useExchangeRate(sendCurrency, receiveCurrency);
+const { formatted: cetDateTime } = useCetClock();
+
+const {
+  labels,
+  values,
+  open,
+  last,
+  change,
+  percentChange,
+  status,
+  error,
+} = useRateHistory(sendCurrency, receiveCurrency, range);
+
+const pairLabel = computed(
+  () => `${sendCurrency.value}/${receiveCurrency.value}`,
+);
+
+const lastUpdatedLabel = computed(() => {
+  const rate = liveRate.value ?? last.value;
+  if (rate == null) return "";
+
+  return `${rate.toFixed(4)} • ${cetDateTime.value} CET`;
+});
+
+const changeColorClass = computed(() => {
+  if (change.value == null) return "text-neutral-100";
+  if (change.value > 0) return "text-green-500";
+  if (change.value < 0) return "text-red-500";
+  return "text-neutral-100";
+});
+
+function formatChange(value: number) {
+  const sign = value > 0 ? "+" : value < 0 ? "" : "";
+  return `${sign}${value.toFixed(4)}`;
+}
+
+function formatPercent(value: number) {
+  const sign = value > 0 ? "+" : value < 0 ? "" : "";
+  return `${sign}${value.toFixed(2)}%`;
+}
+</script>
 
 <template>
   <section class="py-200">
-    <div class="flex flex-col gap-200 p-500">
+    <HistoryChartSkeleton v-if="status === 'pending'" aria-live="polite" />
+
+    <div
+      v-else-if="error || !values.length"
+      class="flex flex-col gap-200 p-500"
+    >
       <p class="text-center text-preset-2 text-neutral-100">
         No chart data available
       </p>
       <p
         class="text-center text-preset-3-mobile text-neutral-200 max-w-[500px] mx-auto"
       >
-        We couldn't load rate history for USD/EUR right now. This usually clears
-        up in a minute.
+        We couldn't load rate history for {{ pairLabel }} right now. This
+        usually clears up in a minute.
       </p>
     </div>
-    <!-- <div class="flex items-center">
-      <div class="flex items-center gap-200 w-full">
-        <div
-          class="flex flex-col gap-200 bg-neutral-600 rounded-16 py-150 px-250"
-        >
-          <p class="text-preset-4 uppercase text-neutral-200">Open</p>
-          <p class="text-preset-2">0.8516</p>
-        </div>
-        <div
-          class="flex flex-col gap-200 bg-neutral-600 rounded-16 py-150 px-250"
-        >
-          <p class="text-preset-4 uppercase text-neutral-200">Last</p>
-          <p class="text-preset-2">0.8516</p>
-        </div>
-        <div
-          class="flex flex-col gap-200 bg-neutral-600 rounded-16 py-150 px-250"
-        >
-          <p class="text-preset-4 uppercase text-neutral-200">Change</p>
-          <p class="text-preset-2 text-green-500">+0.0014</p>
-        </div>
-        <div
-          class="flex flex-col gap-200 bg-neutral-600 rounded-16 py-150 px-250"
-        >
-          <p class="text-preset-4 uppercase text-neutral-200">% Change</p>
 
-          <p class="text-preset-2 text-green-500"><span>▲</span> +0.16%</p>
+    <div v-else class="flex flex-col gap-300 px-400 py-200">
+      <div
+        class="flex flex-col gap-300 xl:flex-row xl:items-center xl:justify-between"
+      >
+        <div class="grid grid-cols-2 gap-200 sm:grid-cols-4">
+          <div
+            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+          >
+            <p class="text-preset-4 uppercase text-neutral-200">Open</p>
+            <p class="text-preset-2">{{ open?.toFixed(4) }}</p>
+          </div>
+
+          <div
+            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+          >
+            <p class="text-preset-4 uppercase text-neutral-200">Last</p>
+            <p class="text-preset-2">{{ last?.toFixed(4) }}</p>
+          </div>
+
+          <div
+            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+          >
+            <p class="text-preset-4 uppercase text-neutral-200">Change</p>
+            <p class="text-preset-2" :class="changeColorClass">
+              {{ change == null ? "—" : formatChange(change) }}
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+          >
+            <p class="text-preset-4 uppercase text-neutral-200">% Change</p>
+            <p class="text-preset-2" :class="changeColorClass">
+              <span v-if="percentChange != null && percentChange > 0">▲ </span>
+              <span v-else-if="percentChange != null && percentChange < 0"
+                >▼
+              </span>
+              {{ percentChange == null ? "—" : formatPercent(percentChange) }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex w-fit items-center rounded-16 bg-neutral-600 p-050"
+          role="group"
+          aria-label="Time range"
+        >
+          <button
+            v-for="option in TIME_RANGES"
+            :key="option"
+            type="button"
+            class="rounded-16 px-250 py-150 text-preset-4 uppercase transition-colors cursor-pointer"
+            :class="
+              range === option
+                ? 'bg-neutral-500 text-neutral-50'
+                : 'text-neutral-200 hover:text-neutral-50'
+            "
+            :aria-pressed="range === option"
+            @click="range = option"
+          >
+            {{ option }}
+          </button>
         </div>
       </div>
 
-      <div class="flex items-center bg-neutral-600 rounded-16">
-        <p class="flex flex-col gap-200 rounded-16 py-150 px-250">1D</p>
-        <p class="flex flex-col gap-200 rounded-16 py-150 px-250">1W</p>
-        <p
-          class="flex flex-col gap-200 bg-neutral-500 rounded-16 py-150 px-250"
+      <div class="relative rounded-16 bg-neutral-600 p-300">
+        <div
+          class="mb-200 flex flex-col gap-100 sm:flex-row sm:items-center sm:justify-between"
         >
-          1M
-        </p>
-        <p class="flex flex-col gap-200 rounded-16 py-150 px-250">3M</p>
-        <p class="flex flex-col gap-200 rounded-16 py-150 px-250">1Y</p>
-        <p class="flex flex-col gap-200 rounded-16 py-150 px-250">3Y</p>
-      </div>
+          <p class="text-preset-2-bold uppercase">{{ pairLabel }}</p>
+          <p class="text-preset-5 uppercase text-neutral-200">
+            {{ lastUpdatedLabel }}
+          </p>
+        </div>
 
-      GRAPH 
-    </div> -->
+        <ClientOnly>
+          <RateChart :key="pairLabel" :labels="labels" :values="values" />
+        </ClientOnly>
+      </div>
+    </div>
   </section>
 </template>

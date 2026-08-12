@@ -16,7 +16,9 @@ import NavBar from "./components/app/NavBar.vue";
 <style>
 .page-enter-active,
 .page-leave-active {
-  transition: all 300ms ease;
+  /* transition: all 300ms ease; */
+  transition: 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  /* transition-delay: calc(var(--i) * 64ms); */
 }
 .page-enter-from,
 .page-leave-to {
