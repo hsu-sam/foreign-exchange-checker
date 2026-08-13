@@ -90,7 +90,7 @@ function pinLabel(code: string, pinned: boolean) {
 
     <div
       v-else
-      class="flex flex-col p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250 overflow-hidden h-[500px]"
+      class="flex flex-col p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250 overflow-hidden h-187"
     >
       <div
         class="flex shrink-0 flex-col gap-150 sm:flex-row sm:items-center sm:justify-between"

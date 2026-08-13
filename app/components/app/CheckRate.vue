@@ -61,7 +61,9 @@ function logConversion() {
 </script>
 
 <template>
-  <section class="flex w-full max-w-275 flex-col gap-300 px-400 py-600 mx-auto">
+  <section
+    class="flex w-full max-w-275 flex-col gap-300 px-200 md:px-400 py-600 mx-auto"
+  >
     <h2 class="text-preset-2 uppercase text-neutral-50">Check the rates</h2>
 
     <div class="rounded-20 bg-neutral-700">
@@ -85,8 +87,16 @@ function logConversion() {
 
         <Button
           variant="border"
+          icon="local:icon-exchange-vertical"
+          class="text-preset-2 w-fit block md:hidden justify-self-center"
+          aria-label="Swap send and receive currencies"
+          @click="swapCurrencies"
+        />
+
+        <Button
+          variant="border"
           icon="local:icon-exchange"
-          class="text-preset-2"
+          class="text-preset-2 w-fit md:block hidden"
           aria-label="Swap send and receive currencies"
           @click="swapCurrencies"
         />
@@ -112,7 +122,7 @@ function logConversion() {
       <div class="border-t border-dashed border-neutral-500"></div>
 
       <div
-        class="flex flex-col gap-200 px-300 py-250 sm:flex-row sm:items-center sm:justify-between"
+        class="flex flex-col md:flex-row gap-200 px-300 py-250 items-center md:items-start md:justify-between"
       >
         <p class="text-preset-5 text-neutral-200" aria-live="polite">
           {{ rateLabel }}

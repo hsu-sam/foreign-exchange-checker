@@ -52,13 +52,13 @@ function deleteLabel(entry: ConversionLogEntry) {
 
     <div
       v-else
-      class="flex flex-col p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250 overflow-hidden h-[500px]"
+      class="flex flex-col py-250 px-200 md:p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250 overflow-hidden h-187"
     >
       <div
         class="flex shrink-0 flex-col gap-150 sm:flex-row sm:items-center sm:justify-between"
       >
-        <p class="text-neutral-200">CONVERSION LOG</p>
-        <div class="flex items-center gap-150">
+        <p>CONVERSION LOG</p>
+        <div class="flex items-center justify-between gap-150">
           <p class="text-preset-5 text-neutral-200 shrink-0">
             {{ count }} LOGGED
           </p>
@@ -80,29 +80,39 @@ function deleteLabel(entry: ConversionLogEntry) {
         <li
           v-for="entry in entries"
           :key="entry.id"
-          class="flex items-center gap-150 px-200 py-150 rounded-12 border border-neutral-500 bg-neutral-600"
+          class="flex items-center justify-between px-200 py-150 rounded-12 border border-neutral-500 bg-neutral-600"
         >
-          <p class="text-preset-5 text-neutral-200 shrink-0 w-8">
-            {{ relativeTime(entry) }}
-          </p>
-          <div class="flex items-center gap-100 text-preset-4 w-full min-w-0">
-            <p>{{ entry.send }}</p>
-            <Icon
-              icon="local:icon-arrow-right"
-              class="text-neutral-200 w-[10.39px] h-[10.39px] shrink-0"
-              aria-hidden="true"
-            />
-            <p>{{ entry.receive }}</p>
+          <div
+            class="flex flex-col gap-050 md:flex-row items-start md:items-center md:gap-150"
+          >
+            <p class="text-preset-5 text-neutral-200 shrink-0 w-8">
+              {{ relativeTime(entry) }}
+            </p>
+            <div class="flex items-center gap-100 text-preset-4 w-full min-w-0">
+              <p>{{ entry.send }}</p>
+              <Icon
+                icon="local:icon-arrow-right"
+                class="text-neutral-200 w-[10.39px] h-[10.39px] shrink-0"
+                aria-hidden="true"
+              />
+              <p>{{ entry.receive }}</p>
+            </div>
           </div>
-          <div class="flex items-center gap-100 text-preset-3 shrink-0">
-            <p class="text-neutral-200">{{ entry.sendAmount }}</p>
-            <p class="text-lime-500">{{ entry.receiveAmount }}</p>
+          <div class="flex tems-center gap-125 md:gap-200">
+            <div
+              class="flex flex-col gap-050 md:flex-row items-start md:items-center md:gap-250 text-preset-3 shrink-0"
+            >
+              <p class="text-neutral-200">{{ entry.sendAmount }}</p>
+              <p class="text-lime-500">{{ entry.receiveAmount }}</p>
+            </div>
+
             <Button
               variant="border"
               icon="local:icon-delete"
               size="rounded"
               :aria-label="deleteLabel(entry)"
               @click="removeEntry(entry.id)"
+              class="self-center"
             />
           </div>
         </li>

@@ -22,6 +22,9 @@ withDefaults(defineProps<ButtonProps>(), {
   loading: false,
 });
 
+const slots = useSlots();
+const hasLabel = computed(() => !!slots.default);
+
 const variants: Record<ButtonVariant, string> = {
   default:
     "flex items-center gap-1.5 text-preset-5-medium leading-p4 font-medium bg-neutral-600 text-neutral-50 hover:bg-neutral-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-lime-500 rounded-8 cursor-pointer",
@@ -30,7 +33,7 @@ const variants: Record<ButtonVariant, string> = {
   outline:
     "flex items-center gap-1.5 text-preset-5-medium leading-p4 font-medium bg-transparent border border-lime-500 text-neutral-50 hover:bg-lime-500/10 focus-visible:outline-none focus-visible:ring focus-visible:ring-lime-500 rounded-8 cursor-pointer",
   border:
-    "text-preset-5-medium leading-p4 font-medium bg-transparent border border-neutral-500 text-neutral-50 hover:bg-neutral-500/10 focus-visible:outline-none focus-visible:ring focus-visible:ring-lime-500 rounded-8 cursor-pointer",
+    "flex items-center gap-1.5 text-preset-5-medium leading-p4 font-medium bg-transparent border border-neutral-500 text-neutral-50 hover:bg-neutral-500/10 focus-visible:outline-none focus-visible:ring focus-visible:ring-lime-500 rounded-8 cursor-pointer",
 };
 
 const sizes: Record<ButtonSize, string> = {
@@ -44,12 +47,12 @@ const sizes: Record<ButtonSize, string> = {
     :type
     :disabled="disabled || loading"
     :aria-busy="loading"
-    :class="[variants[variant], sizes[size]]"
+    :class="[variants[variant], sizes[size], !hasLabel && 'justify-center']"
     class="disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-[.98] transition-transform"
   >
     <Icon icon="mdi-light:loading" class="animate-spin" v-if="loading" />
     <Icon v-else-if="icon" :icon />
-    <span class="text-center flex-1">
+    <span v-if="hasLabel" class="text-center flex-1">
       <slot />
     </span>
   </button>

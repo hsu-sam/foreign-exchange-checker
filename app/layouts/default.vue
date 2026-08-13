@@ -11,10 +11,10 @@ import LiveMarketTicker from "~/components/app/LiveMarketTicker.vue";
       <LiveMarketTicker />
     </div>
 
-    <div>
-      <CheckRate />
-    </div>
+    <CheckRate />
 
-    <slot />
+    <div class="max-w-275 px-200 md:px-400 mx-auto">
+      <slot />
+    </div>
   </div>
 </template>

@@ -93,7 +93,7 @@ function unpinLabel(send: string, receive: string) {
 
     <div
       v-else
-      class="flex flex-col p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250 overflow-hidden h-[500px]"
+      class="flex flex-col p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250 overflow-hidden h-187"
     >
       <div
         v-if="status === 'pending'"
