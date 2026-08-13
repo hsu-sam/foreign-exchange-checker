@@ -22,9 +22,7 @@ if (import.meta.server) {
 <template>
   <div>
     <NuxtLayout>
-      <div class="hidden md:block">
-        <NavBar />
-      </div>
+      <NavBar />
       <NuxtPage />
     </NuxtLayout>
   </div>

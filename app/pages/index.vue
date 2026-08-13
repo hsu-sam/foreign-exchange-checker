@@ -10,16 +10,8 @@ const range = ref<TimeRange>("1M");
 const { rate: liveRate } = useExchangeRate(sendCurrency, receiveCurrency);
 const { formatted: cetDateTime } = useCetClock();
 
-const {
-  labels,
-  values,
-  open,
-  last,
-  change,
-  percentChange,
-  status,
-  error,
-} = useRateHistory(sendCurrency, receiveCurrency, range);
+const { labels, values, open, last, change, percentChange, status, error } =
+  useRateHistory(sendCurrency, receiveCurrency, range);
 
 const pairLabel = computed(
   () => `${sendCurrency.value}/${receiveCurrency.value}`,
@@ -75,27 +67,32 @@ function formatPercent(value: number) {
       </p>
     </div>
 
-    <div v-else class="flex flex-col gap-300 px-400 py-200">
+    <div
+      v-else
+      class="flex flex-col py-250 px-200 md:p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250"
+    >
       <div
-        class="flex flex-col gap-300 xl:flex-row xl:items-center xl:justify-between"
+        class="flex flex-col gap-250 sm:flex-row sm:items-center sm:justify-between"
       >
-        <div class="grid grid-cols-2 gap-200 sm:grid-cols-4">
+        <div
+          class="grid grid-cols-2 gap-150 sm:gap-200 sm:grid-cols-4 w-full sm:w-auto"
+        >
           <div
-            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+            class="flex flex-col gap-150 md:gap-200 rounded-16 bg-neutral-600 py-150 px-200 md:px-250"
           >
             <p class="text-preset-4 uppercase text-neutral-200">Open</p>
             <p class="text-preset-2">{{ open?.toFixed(4) }}</p>
           </div>
 
           <div
-            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+            class="flex flex-col gap-150 md:gap-200 rounded-16 bg-neutral-600 py-150 px-200 md:px-250"
           >
             <p class="text-preset-4 uppercase text-neutral-200">Last</p>
             <p class="text-preset-2">{{ last?.toFixed(4) }}</p>
           </div>
 
           <div
-            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+            class="flex flex-col gap-150 md:gap-200 rounded-16 bg-neutral-600 py-150 px-200 md:px-250"
           >
             <p class="text-preset-4 uppercase text-neutral-200">Change</p>
             <p class="text-preset-2" :class="changeColorClass">
@@ -104,7 +101,7 @@ function formatPercent(value: number) {
           </div>
 
           <div
-            class="flex flex-col gap-200 rounded-16 bg-neutral-600 py-150 px-250"
+            class="flex flex-col gap-150 md:gap-200 rounded-16 bg-neutral-600 py-150 px-200 md:px-250"
           >
             <p class="text-preset-4 uppercase text-neutral-200">% Change</p>
             <p class="text-preset-2" :class="changeColorClass">
@@ -118,7 +115,7 @@ function formatPercent(value: number) {
         </div>
 
         <div
-          class="flex w-fit items-center rounded-16 bg-neutral-600 p-050"
+          class="flex w-full shrink-0 items-center rounded-16 bg-neutral-600 p-050 overflow-x-auto scrollbar-none sm:w-fit"
           role="group"
           aria-label="Time range"
         >
@@ -126,7 +123,7 @@ function formatPercent(value: number) {
             v-for="option in TIME_RANGES"
             :key="option"
             type="button"
-            class="rounded-16 px-250 py-150 text-preset-4 uppercase transition-colors cursor-pointer"
+            class="w-fit rounded-16 px-250 py-150 text-preset-4 uppercase transition-colors duration-75 cursor-pointer"
             :class="
               range === option
                 ? 'bg-neutral-500 text-neutral-50'
@@ -140,12 +137,14 @@ function formatPercent(value: number) {
         </div>
       </div>
 
-      <div class="relative rounded-16 bg-neutral-600 p-300">
+      <div class="relative rounded-16 bg-neutral-600 p-200 md:p-300">
         <div
           class="mb-200 flex flex-col gap-100 sm:flex-row sm:items-center sm:justify-between"
         >
           <p class="text-preset-2-bold uppercase">{{ pairLabel }}</p>
-          <p class="text-preset-5 uppercase text-neutral-200">
+          <p
+            class="text-preset-5 uppercase text-neutral-200 break-all sm:break-normal"
+          >
             {{ lastUpdatedLabel }}
           </p>
         </div>
