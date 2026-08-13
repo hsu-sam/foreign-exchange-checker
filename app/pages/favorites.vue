@@ -8,6 +8,14 @@ import EmptyCurrency from "~/assets/empty-cash.svg";
 
 const { sendCurrency, receiveCurrency } = useSelectedPair();
 const { count, togglePin } = useFavorites();
+
+useSeoMeta({
+  title: "Favorites | FX Checker",
+  description: () =>
+    count.value === 0
+      ? "Pin currency pairs to track their rates in one place."
+      : `Track ${count.value} pinned currency pair${count.value === 1 ? "" : "s"}.`,
+});
 const { rows, status, error } = useFavoriteRates();
 const { data: currencies } = useCurrencies();
 

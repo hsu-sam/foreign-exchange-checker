@@ -25,6 +25,12 @@ const pairLabel = computed(
   () => `${sendCurrency.value}/${receiveCurrency.value}`,
 );
 
+useSeoMeta({
+  title: () => `Rate History — ${pairLabel.value} | FX Checker`,
+  description: () =>
+    `View historical exchange rate charts and live data for ${pairLabel.value}.`,
+});
+
 const lastUpdatedLabel = computed(() => {
   const rate = liveRate.value ?? last.value;
   if (rate == null) return "";

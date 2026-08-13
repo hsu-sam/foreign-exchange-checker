@@ -1,5 +1,22 @@
 <script setup lang="ts">
 import NavBar from "./components/app/NavBar.vue";
+
+useSeoMeta({
+  title: "FX Checker",
+  ogTitle: "FX Checker",
+  ogDescription:
+    "Track live exchange rates, compare currencies, and log conversions.",
+  twitterCard: "summary_large_image",
+});
+
+if (import.meta.server) {
+  useSeoMeta({
+    description:
+      "Track live exchange rates, compare currencies, and log conversions.",
+    ogImage: "/favicon.png",
+    robots: "index, follow",
+  });
+}
 </script>
 
 <template>

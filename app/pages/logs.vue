@@ -6,6 +6,14 @@ import { formatRelativeTime } from "~/utils/relativeTime";
 
 const { entries, count, removeEntry, clearAll } = useConversionLog();
 
+useSeoMeta({
+  title: "Conversion Log | FX Checker",
+  description: () =>
+    count.value === 0
+      ? "Log conversions automatically as you check exchange rates."
+      : `Review ${count.value} logged conversion${count.value === 1 ? "" : "s"}.`,
+});
+
 const now = ref(Date.now());
 let relativeTimeInterval: ReturnType<typeof setInterval> | undefined;
 

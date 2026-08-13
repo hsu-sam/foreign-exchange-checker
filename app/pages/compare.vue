@@ -8,6 +8,12 @@ import type { CompareRow } from "~/composables/useCompareRates";
 import EmptyCurrency from "~/assets/empty-cash.svg";
 
 const { sendCurrency } = useSelectedPair();
+
+useSeoMeta({
+  title: () => `Compare from ${sendCurrency.value} | FX Checker`,
+  description: () =>
+    `Compare ${sendCurrency.value} against other currencies at live exchange rates.`,
+});
 const { rows, status, error, parsedAmount, headerAmountLabel, pairCount } =
   useCompareRates();
 const { isPinned, togglePin } = useFavorites();
