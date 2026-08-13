@@ -111,13 +111,16 @@ function pinLabel(code: string, pinned: boolean) {
           </p>
         </div>
       </div>
-
-      <img
+      <div
         v-if="!filteredRows.length"
-        :src="EmptyCurrency"
-        alt="Not found"
-        class="mx-auto w-99 h-99 object-contain"
-      />
+        class="flex flex-1 flex-col gap-200 items-center justify-center h-62.5"
+      >
+        <img
+          :src="EmptyCurrency"
+          alt="Not found"
+          class="mx-auto object-contain"
+        />
+      </div>
 
       <ul
         v-else

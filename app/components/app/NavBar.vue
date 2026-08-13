@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { count: favoritesCount } = useFavorites();
+const { count: logsCount } = useConversionLog();
 
 const navLinks = computed(() => [
   { label: "History", to: "/" },
@@ -9,7 +10,11 @@ const navLinks = computed(() => [
     total: favoritesCount.value || undefined,
     to: "/favorites",
   },
-  { label: "Logs", total: 2, to: "/logs" },
+  {
+    label: "Logs",
+    total: logsCount.value || undefined,
+    to: "/logs",
+  },
 ]);
 </script>
 

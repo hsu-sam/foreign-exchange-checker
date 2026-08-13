@@ -6,6 +6,7 @@ import CurrencyPicker from "../ui/CurrencyPicker.vue";
 const { sendCurrency, receiveCurrency, swapCurrencies } = useSelectedPair();
 const { sendAmount } = useSendAmount();
 const { isPinned, togglePin } = useFavorites();
+const { addEntry } = useConversionLog();
 
 const { rate, status, error } = useExchangeRate(sendCurrency, receiveCurrency);
 
@@ -35,8 +36,27 @@ const pairIsPinned = computed(() =>
   isPinned(sendCurrency.value, receiveCurrency.value),
 );
 
+const canLogConversion = computed(
+  () => sendAmount.value !== "" && receiveAmount.value !== "",
+);
+
+const logAnnouncement = ref("");
+
 function toggleFavorite() {
   togglePin(sendCurrency.value, receiveCurrency.value);
+}
+
+function logConversion() {
+  if (!canLogConversion.value) return;
+
+  addEntry(
+    sendCurrency.value,
+    receiveCurrency.value,
+    sendAmount.value,
+    receiveAmount.value,
+  );
+
+  logAnnouncement.value = `Logged ${sendAmount.value} ${sendCurrency.value} to ${receiveAmount.value} ${receiveCurrency.value}`;
 }
 </script>
 
@@ -112,9 +132,17 @@ function toggleFavorite() {
           >
             {{ pairIsPinned ? "FAVORITED" : "FAVORITE" }}
           </Button>
-          <Button variant="outline">LOG CONVERSION</Button>
+          <Button
+            variant="outline"
+            :disabled="!canLogConversion"
+            @click="logConversion"
+          >
+            LOG CONVERSION
+          </Button>
         </div>
       </div>
     </div>
+
+    <p class="sr-only" aria-live="polite">{{ logAnnouncement }}</p>
   </section>
 </template>
