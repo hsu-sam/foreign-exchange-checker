@@ -67,10 +67,7 @@ function formatPercent(value: number) {
       </p>
     </div>
 
-    <div
-      v-else
-      class="flex flex-col py-250 px-200 md:p-250 bg-neutral-700 border- border-neutral-600 rounded-16 gap-250"
-    >
+    <div v-else class="flex flex-col py-250 px-200 md:p-250 gap-250">
       <div
         class="flex flex-col gap-250 sm:flex-row sm:items-center sm:justify-between"
       >
