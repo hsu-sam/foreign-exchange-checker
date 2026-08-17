@@ -46,28 +46,15 @@ function formatPercent(value: number) {
   const sign = value > 0 ? "+" : value < 0 ? "" : "";
   return `${sign}${value.toFixed(2)}%`;
 }
+
+function formatStat(value: number | null) {
+  return value == null ? "—" : value.toFixed(4);
+}
 </script>
 
 <template>
   <section class="py-200">
-    <HistoryChartSkeleton v-if="status === 'pending'" aria-live="polite" />
-
-    <div
-      v-else-if="error || !values.length"
-      class="flex flex-col gap-200 p-500"
-    >
-      <p class="text-center text-preset-2 text-neutral-100">
-        No chart data available
-      </p>
-      <p
-        class="text-center text-preset-3-mobile text-neutral-200 max-w-[500px] mx-auto"
-      >
-        We couldn't load rate history for {{ pairLabel }} right now. This
-        usually clears up in a minute.
-      </p>
-    </div>
-
-    <div v-else class="flex flex-col py-250 px-200 md:p-250 gap-250">
+    <div class="flex flex-col py-250 px-200 md:p-250 gap-250">
       <div
         class="flex flex-col gap-250 sm:flex-row sm:items-center sm:justify-between"
       >
@@ -78,14 +65,14 @@ function formatPercent(value: number) {
             class="flex flex-col gap-150 md:gap-200 rounded-16 bg-neutral-600 py-150 px-200 md:px-250"
           >
             <p class="text-preset-4 uppercase text-neutral-200">Open</p>
-            <p class="text-preset-2">{{ open?.toFixed(4) }}</p>
+            <p class="text-preset-2">{{ formatStat(open) }}</p>
           </div>
 
           <div
             class="flex flex-col gap-150 md:gap-200 rounded-16 bg-neutral-600 py-150 px-200 md:px-250"
           >
             <p class="text-preset-4 uppercase text-neutral-200">Last</p>
-            <p class="text-preset-2">{{ last?.toFixed(4) }}</p>
+            <p class="text-preset-2">{{ formatStat(last) }}</p>
           </div>
 
           <div
@@ -120,7 +107,7 @@ function formatPercent(value: number) {
             v-for="option in TIME_RANGES"
             :key="option"
             type="button"
-            class="w-fit rounded-16 px-250 py-150 text-preset-4 uppercase transition-colors duration-75 cursor-pointer"
+            class="shrink-0 rounded-16 px-150 py-100 md:px-250 md:py-150 text-preset-5 md:text-preset-4 uppercase transition-colors duration-75 cursor-pointer"
             :class="
               range === option
                 ? 'bg-neutral-500 text-neutral-50'
@@ -146,8 +133,25 @@ function formatPercent(value: number) {
           </p>
         </div>
 
-        <ClientOnly>
-          <RateChart :key="pairLabel" :labels="labels" :values="values" />
+        <HistoryChartSkeleton v-if="status === 'pending'" aria-live="polite" />
+
+        <div
+          v-else-if="error || !values.length"
+          class="flex h-62.5 md:h-80 flex-col items-center justify-center gap-200 p-500"
+        >
+          <p class="text-center text-preset-2 text-neutral-100">
+            No chart data available
+          </p>
+          <p
+            class="text-center text-preset-3-mobile text-neutral-200 max-w-[500px]"
+          >
+            We couldn't load rate history for {{ pairLabel }} right now. This
+            usually clears up in a minute.
+          </p>
+        </div>
+
+        <ClientOnly v-else>
+          <RateChart :key="`${pairLabel}-${range}`" :labels="labels" :values="values" />
         </ClientOnly>
       </div>
     </div>

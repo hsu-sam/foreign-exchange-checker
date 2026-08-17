@@ -75,7 +75,7 @@ function onInput(event: Event) {
     autocomplete="off"
     spellcheck="false"
     :class="[
-      'w-full min-w-0 bg-transparent text-preset-1 max-md:text-preset-1-tablet text-neutral-50 focus-visible:outline  focus-visible:outline-lime-500 placeholder:text-neutral-400 disabled:text-lime-500 disabled:cursor-not-allowed rounded-8',
+      'w-full min-w-0 border-none bg-transparent text-preset-1 max-md:text-preset-1-tablet text-neutral-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-lime-500 focus-visible:ring-offset-1 focus-visible:ring-offset-neutral-900 placeholder:text-neutral-400 disabled:text-lime-500 disabled:cursor-not-allowed rounded-8',
       $attrs.class,
     ]"
     @keydown="onKeydown"
