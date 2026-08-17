@@ -72,12 +72,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./screenshot.png)
 
 ### Links
 
 - Solution URL: [https://github.com/hsu-sam/foreign-exchange-checker](https://github.com/hsu-sam/foreign-exchange-checker)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here]([https://your-live-site-url.com](https://fx-checker.brimble.app))
 
 ## My process
 
