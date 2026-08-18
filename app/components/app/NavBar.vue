@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import { Icon } from "@iconify/vue";
+import Icon from "~/components/ui/Icon.vue";
 
 interface NavLink {
   label: string;
@@ -43,10 +43,7 @@ const activeLink = computed(
     class="hidden md:flex items-center"
     aria-label="Main navigation"
   >
-    <ul
-      class="flex items-center gap-100 border-b border-neutral-600 w-full"
-      role="list"
-    >
+    <ul class="flex items-center gap-100 border-b border-neutral-600 w-full">
       <li v-for="link in navLinks" :key="link.to">
         <NuxtLink
           :to="link.to"
@@ -79,7 +76,7 @@ const activeLink = computed(
         v-slot="{ open }"
         class="flex w-full items-center justify-between rounded-8 border border-neutral-600 bg-neutral-700 px-200 py-150 text-preset-3 uppercase text-neutral-50 focus-visible:outline-none focus-visible:ring focus-visible:ring-lime-500"
       >
-        <div class="flex items-center gap-100">
+        <span class="flex items-center gap-100">
           {{ activeLink.label }}
           <span
             v-if="activeLink.total"
@@ -87,7 +84,7 @@ const activeLink = computed(
           >
             {{ activeLink.total }}
           </span>
-        </div>
+        </span>
         <Icon
           icon="local:icon-chevron-down"
           class="size-3 text-neutral-50 transition-transform duration-150"
@@ -108,7 +105,7 @@ const activeLink = computed(
           v-if="open"
           class="absolute left-0 right-0 z-50 mt-100 overflow-hidden rounded-8 border border-neutral-600 bg-neutral-700 shadow-[0_16px_40px_rgba(0,0,0,0.45)] focus:outline-none"
         >
-          <ul role="list">
+          <ul>
             <MenuItem
               v-for="link in navLinks"
               :key="link.to"

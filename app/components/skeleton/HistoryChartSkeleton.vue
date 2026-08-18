@@ -12,8 +12,25 @@
       <div class="mx-4 border-t border-dashed border-neutral-500/50" />
     </div>
     <div
-      class="absolute inset-x-4 bottom-6 h-32 animate-pulse rounded-t-full bg-neutral-500/30"
-      style="clip-path: polygon(0% 80%, 12% 55%, 25% 65%, 38% 40%, 52% 50%, 65% 25%, 78% 35%, 92% 15%, 100% 20%, 100% 100%, 0% 100%)"
+      class="chart-skeleton-area absolute inset-x-4 bottom-6 h-32 animate-pulse rounded-t-full bg-neutral-500/30"
     />
   </div>
 </template>
+
+<style scoped>
+.chart-skeleton-area {
+  clip-path: polygon(
+    0% 80%,
+    12% 55%,
+    25% 65%,
+    38% 40%,
+    52% 50%,
+    65% 25%,
+    78% 35%,
+    92% 15%,
+    100% 20%,
+    100% 100%,
+    0% 100%
+  );
+}
+</style>

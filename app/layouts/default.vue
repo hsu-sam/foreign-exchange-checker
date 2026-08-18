@@ -5,7 +5,7 @@ import LiveMarketTicker from "~/components/app/LiveMarketTicker.vue";
 </script>
 
 <template>
-  <div>
+  <div id="app">
     <div>
       <Header />
       <LiveMarketTicker />

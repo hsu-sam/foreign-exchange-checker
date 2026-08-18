@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import Icon from "~/components/ui/Icon.vue";
 import Button from "~/components/ui/Button.vue";
 import type { ConversionLogEntry } from "~/types/conversionLog";
 import { formatRelativeTime } from "~/utils/relativeTime";
@@ -75,7 +75,6 @@ function deleteLabel(entry: ConversionLogEntry) {
 
       <ul
         class="flex min-h-0 flex-1 flex-col gap-150 overflow-y-auto pr-050 scrollbar-none rounded-8"
-        role="list"
       >
         <li
           v-for="entry in entries"

@@ -117,7 +117,7 @@
 
 body {
   color: var(--color-neutral-50);
-  font-size: 16px;
+  font-size: 1rem;
   font-family: var(--font-jetbrains-mono);
   background-color: var(--color-neutral-900);
 }
@@ -133,6 +133,12 @@ body {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link-underline {
+    transition: none;
+  }
 }
 
 .nav-link:hover .nav-link-underline,

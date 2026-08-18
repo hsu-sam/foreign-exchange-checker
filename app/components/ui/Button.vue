@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import Icon from "./Icon.vue";
 
 // "link" folded into variant since it's a style, not a size
 type ButtonVariant = "default" | "secondary" | "outline" | "border";
@@ -50,7 +50,11 @@ const sizes: Record<ButtonSize, string> = {
     :class="[variants[variant], sizes[size], !hasLabel && 'justify-center']"
     class="disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-[.98] transition-transform"
   >
-    <Icon icon="mdi-light:loading" class="animate-spin" v-if="loading" />
+    <span
+      v-if="loading"
+      class="inline-block size-[1em] shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent"
+      aria-hidden="true"
+    />
     <Icon v-else-if="icon" :icon />
     <span v-if="hasLabel" class="text-center flex-1">
       <slot />

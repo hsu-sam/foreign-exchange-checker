@@ -151,7 +151,11 @@ function formatStat(value: number | null) {
         </div>
 
         <ClientOnly v-else>
-          <RateChart :key="`${pairLabel}-${range}`" :labels="labels" :values="values" />
+          <RateChart
+            :key="`${pairLabel}-${range}`"
+            :labels="labels"
+            :values="values"
+          />
         </ClientOnly>
       </div>
     </div>

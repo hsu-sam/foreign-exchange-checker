@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import Icon from "~/components/ui/Icon.vue";
 import Button from "~/components/ui/Button.vue";
 import CurrencyFlag from "~/components/ui/CurrencyFlag.vue";
 import SearchInput from "~/components/ui/SearchInput.vue";
@@ -131,7 +131,6 @@ function pinLabel(code: string, pinned: boolean) {
       <ul
         v-else
         class="flex min-h-0 flex-1 flex-col gap-150 overflow-y-auto pr-050 scrollbar-none rounded-8"
-        role="list"
       >
         <li
           v-for="row in filteredRows"

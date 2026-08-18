@@ -78,7 +78,7 @@ function logConversion() {
           <div class="flex min-w-0 items-center gap-200">
             <AmountInput
               v-model="sendAmount"
-              class="min-w-0 flex-1"
+              class="flex-1"
               name="send-amount"
             />
             <CurrencyPicker v-model="sendCurrency" />
@@ -109,7 +109,7 @@ function logConversion() {
           <div class="flex min-w-0 items-center gap-200">
             <AmountInput
               v-model="receiveAmountModel"
-              class="min-w-0 flex-1 text-lime-500"
+              class="flex-1 text-lime-500"
               name="receive-amount"
               disabled
               aria-live="polite"

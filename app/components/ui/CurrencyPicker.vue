@@ -6,7 +6,7 @@ import {
   ComboboxOption,
   ComboboxOptions,
 } from "@headlessui/vue";
-import { Icon } from "@iconify/vue";
+import Icon from "~/components/ui/Icon.vue";
 import CurrencyFlag from "~/components/ui/CurrencyFlag.vue";
 import { POPULAR_CURRENCY_CODES } from "~/constants/popularCurrencies";
 import type { Currency } from "~/types/currency";
