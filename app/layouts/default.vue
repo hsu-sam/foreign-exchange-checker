@@ -6,10 +6,8 @@ import LiveMarketTicker from "~/components/app/LiveMarketTicker.vue";
 
 <template>
   <div id="app">
-    <div>
-      <Header />
-      <LiveMarketTicker />
-    </div>
+    <Header />
+    <LiveMarketTicker />
 
     <CheckRate />
 
