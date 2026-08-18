@@ -117,7 +117,7 @@
 
 body {
   color: var(--color-neutral-50);
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
   font-family: var(--font-jetbrains-mono);
   background-color: var(--color-neutral-900);
 }
@@ -127,7 +127,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 1px;
+  height: 0.0625rem;
   width: 100%;
   background-color: var(--color-lime-500);
   transform: scaleX(0);

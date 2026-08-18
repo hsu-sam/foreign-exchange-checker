@@ -69,4 +69,10 @@ const scrollingItems = computed(() => {
 .animate-ticker-scroll:hover {
   animation-play-state: paused;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker-scroll {
+    animation-play-state: paused;
+  }
+}
 </style>
